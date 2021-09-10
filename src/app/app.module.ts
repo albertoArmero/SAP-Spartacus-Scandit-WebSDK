@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ScanditSdkModule } from "scandit-sdk-angular";
 
+
 import { ConfigModule } from '@spartacus/core';
 import { translations, translationChunksConfig } from '@spartacus/assets';
 import { B2cStorefrontModule, defaultCmsContentConfig } from '@spartacus/storefront';
@@ -17,7 +18,7 @@ const engineLocation: string = "https://cdn.jsdelivr.net/npm/scandit-sdk@5.5.0/b
   declarations: [AppComponent],
   imports: [
 
-    ScanditSdkModule.forRoot(licenseKey, { engineLocation }),
+    ScanditSdkModule.forRoot(licenseKey, { engineLocation }),    
 
     BrowserModule,
     

@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { Barcode, BarcodePicker, Camera, CameraSettings, ScanResult, ScanSettings } from "scandit-sdk";
+import { Barcode, BarcodePicker, Camera, CameraSettings, ScanResult, ScanSettings } from "scandit-sdk-angular";
 
 @Component({
   selector: 'my-app',
@@ -13,6 +13,7 @@ export class AppComponent  {
   public activeSettings: ScanSettings;
   public settingsSymbologies: ScanSettings;
   public scannerGuiStyle: BarcodePicker.GuiStyle = BarcodePicker.GuiStyle.LASER;
+  public activeCamera: Camera;
   public cameraSettings: CameraSettings;
   public scanningPaused: boolean = false;
   public visible: boolean = true;
@@ -35,28 +36,25 @@ export class AppComponent  {
 
   constructor() {
 
+    // We enable EAN13 and CODE128 symbologies, setting up a 3 sec duplicte filter and a rectangle search area 
+    // of 100% width and 20% height, in the center of the screen
     this.settingsSymbologies = new ScanSettings({
-      enabledSymbologies: [Barcode.Symbology.CODE128,Barcode.Symbology.EAN13],
+      enabledSymbologies: [Barcode.Symbology.EAN13,Barcode.Symbology.CODE128],
       codeDuplicateFilter: 3000,
       searchArea: { x: 0, y: 0.4, width: 1, height: 0.2 },
     });
 
+    // We apply the settings, from the ScanSettings objectd previously created
     this.activeSettings = this.settingsSymbologies;
 
+    // We enable Full HD resolution 
     this.cameraSettings = {
       resolutionPreference: CameraSettings.ResolutionPreference.FULL_HD,
     };
 
+    // Calling custom method to enable camera access,   
     this.setupCameraSettings();
   
-  }
-
-  public toggleGuiStyle(): void {
-    if (this.scannerGuiStyle === BarcodePicker.GuiStyle.VIEWFINDER) {
-      this.scannerGuiStyle = BarcodePicker.GuiStyle.LASER;
-    } else {
-      this.scannerGuiStyle = BarcodePicker.GuiStyle.VIEWFINDER;
-    }
   }
 
   public onScan(result: ScanResult): void {
@@ -69,6 +67,8 @@ export class AppComponent  {
     this.cameraAccess = !this.cameraAccess;
     this.scanningPaused = !this.scanningPaused;
     this.visible = !this.visible;
+    this.scannerGuiStyle = BarcodePicker.GuiStyle.LASER;
+    
     this.showCameraDiv();
   
   }
