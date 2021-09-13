@@ -12,7 +12,6 @@ constructor(private activeCartService: ActiveCartService){
   addProductToCart(barcode: Barcode[]){
 
     let mappedProduct:string = this.mapBarcodeWithProduct(barcode[0].data);
-    console.log(mappedProduct);
     this.activeCartService.addEntry(mappedProduct, 1);
 
 }
@@ -20,6 +19,7 @@ constructor(private activeCartService: ActiveCartService){
   mapBarcodeWithProduct(barcode: string): string{
 
     let productID:string;
+    console.log(barcode)
 
     productID = BARCODE_DICTIONARY[barcode];
 
