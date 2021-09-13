@@ -19,10 +19,9 @@ constructor(private activeCartService: ActiveCartService){
   mapBarcodeWithProduct(barcode: string): string{
 
     let productID:string;
-    console.log(barcode)
-
+    console.log(typeof barcode);
     productID = BARCODE_DICTIONARY[barcode];
-
+    console.log(typeof productID);
     return productID;
 
   }
