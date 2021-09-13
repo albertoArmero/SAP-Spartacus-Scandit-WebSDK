@@ -1,1 +1,30 @@
 <cx-storefront></cx-storefront>
+
+<ng-template cxOutletRef="SearchBox" cxOutletPos="after">
+  <div class="scan-button">
+   <button mat-fab aria-label="Button to initiate Scandit scanner" (click)="setupCameraSettings()">
+      <mat-icon class="icon-display" svgIcon="barcodeicon"></mat-icon>
+    </button>
+  </div>
+  <div [hidden]="isShowDiv">
+    <scandit-sdk-barcode-picker #picker [accessCamera]="cameraAccess"
+                            [camera]="activeCamera"
+                            [cameraSettings]="cameraSettings"
+                            [enableCameraSwitcher]="enableCameraSwitcher"
+                            [enablePinchToZoom]="enablePinchToZoom"
+                            [enableTapToFocus]="enableTapToFocus"
+                            [enableTorchToggle]="enableTorchToggle"
+                            [guiStyle]="scannerGuiStyle"
+                            [paused]="scanningPaused"
+                            [playSoundOnScan]="enableSoundOnScan"
+                            [scanSettings]="activeSettings"
+                            [targetScanningFPS]="fps"
+                            [vibrateOnScan]="enableVibrateOnScan"
+                            [videoFit]="videoFit"
+                            [visible]="visible"
+                            [style.height]="height || '55vw'"
+                            [style.width]="width || '100vw'"
+                            (scan)="onScan($event)"
+                            (init)="isReady = false" (ready)="isReady = true"></scandit-sdk-barcode-picker>
+   </div>
+<ng-template>
