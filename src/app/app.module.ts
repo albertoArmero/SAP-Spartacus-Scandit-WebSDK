@@ -7,7 +7,7 @@ import { ScanditSdkModule } from "scandit-sdk-angular";
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-import { ConfigModule } from '@spartacus/core';
+import { ConfigModule, GlobalMessageConfig, GlobalMessageType, provideConfig } from '@spartacus/core';
 import { translations, translationChunksConfig } from '@spartacus/assets';
 import { B2cStorefrontModule, defaultCmsContentConfig } from '@spartacus/storefront';
 import { AddToCartService } from './add-to-cart.service';
@@ -17,6 +17,15 @@ const licenseKey: string = "AaNAQg1/L16VN0WA7iMVWTsju2QaBoqi03yum8MZqAreH6Bl4yDu
 
 const engineLocation: string = "https://cdn.jsdelivr.net/npm/scandit-sdk@5.x/build/";
 
+function yourGlobalMessageConfigFactory(): GlobalMessageConfig {
+  return {
+    globalMessages: {
+      [GlobalMessageType.MSG_TYPE_ERROR]: {
+        timeout: 3000,
+      },
+    },
+  };
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +34,8 @@ const engineLocation: string = "https://cdn.jsdelivr.net/npm/scandit-sdk@5.x/bui
     ScanditSdkModule.forRoot(licenseKey, { engineLocation }),
     MatIconModule,
     MatButtonModule,
-    HttpClientModule,  
+    HttpClientModule, 
+    ConfigModule.withConfigFactory(yourGlobalMessageConfigFactory), 
 
     BrowserModule,
     
@@ -46,11 +56,11 @@ const engineLocation: string = "https://cdn.jsdelivr.net/npm/scandit-sdk@5.x/bui
       baseSite: ['electronics-spa']
     },
     i18n: {
-      resources: translations,
-      chunks: translationChunksConfig,
-      fallbackLang: 'en'
+      backend: {
+        loadPath: 'assets/i18n-assets/en/{{ns}}.json'
+      },
+      chunks: translationChunksConfig
     }
-
     })
   ],
   providers: [AddToCartService],

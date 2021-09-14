@@ -6,7 +6,7 @@ import { GetSvgBarcodeService } from './get-svg-barcode.service';
 import { AddToCartService } from './add-to-cart.service';
 
 @Component({
-  selector: 'my-app',
+  selector: 'scandit-app',
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css' ]
 })
