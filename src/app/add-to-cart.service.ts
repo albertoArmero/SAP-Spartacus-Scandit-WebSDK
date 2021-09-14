@@ -12,7 +12,7 @@ constructor(private activeCartService: ActiveCartService){
   addProductToCart(barcode: Barcode[]){
 
     let mappedProduct:string = this.mapBarcodeWithProduct(barcode[0].data);
-    this.activeCartService.addEntry("", 1);
+    this.activeCartService.addEntry(mappedProduct, 1);
 
 }
 
